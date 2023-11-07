@@ -22,7 +22,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 -- NOTE: Here is where you install your plugins.
 --  You can configure plugins using the `config` key.
---
 --  You can also configure plugins after the setup call,
 --    as they will be available in your neovim runtime.
 require('lazy').setup({
@@ -80,8 +79,8 @@ require('lazy').setup({
     -- See `:help lualine.txt`
     opts = {
       options = {
-        icons_enabled = false,
-        theme = 'onedark',
+        icons_enabled = true,
+        theme = 'everforest',
         component_separators = '|',
         section_separators = '',
       },
@@ -125,3 +124,4 @@ require('lazy').setup({
 }, {})
 -- require 'lspconfig'.pyright.setup{}
 -- require 'lspconfig'.ccls.setup{}
+--

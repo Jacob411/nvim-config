@@ -41,18 +41,52 @@ P.S. You can delete this when you're done too. It's your config now :)
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
 
--- Copilot helper (bug involving nodejs version)
 -- lua
-vim.g.copilot_node_command = "~/.nvm/versions/node/v16.20.2/bin/node"
+-- autocommand to go to last position when opening a file
+--
+-- vim.api.nvim_create_autocmd({'BufWinEnter'}, {
+--   desc = 'return cursor to where it was last time closing the file',
+--   pattern = '*',
+--   command = 'silent! normal! g`"zv',
+-- })
+--
+--marks helper
+--[[
+function ShowGlobalMarksOnExit()
+  print("RUNNING")
+  -- get current bufnr
+  local bufnr = vim.api.nvim_get_current_buf()
+  -- get current cursor position
+  local init_pos = vim.api.nvim_win_get_cursor(0)
+  print('bufnr: '..bufnr)
+  print('line: '..init_pos[1])
 
+          vim.api.nvim_buf_set_mark(bufnr,'Q', 0,0, {})
+  --get current file name
+  local currentFile = vim.api.nvim_buf_get_name(0)
+  for mark = string.byte('A'), string.byte('Z') do
+        local mark_name = string.char(mark)
+        local curr_pos = vim.api.nvim_get_mark(mark_name, {})
+        if curr_pos[4] ~= "" then
+          print(mark_name..'  name: ' ..curr_pos[4].. '   bufnr: ' ..curr_pos[3].. '   line: '..curr_pos[1]..'   column: '..curr_pos[2])
+        end
+        if curr_pos[3] == bufnr then
+          print('mark: '..mark_name.. "moving to last visited line fFOUNDDD")
+          vim.api.nvim_buf_set_mark(bufnr, mark_name, curr_pos[1], curr_pos[2], {})
+        end
+      
+  end
+end
+vim.keymap.set("n", "<leader>g", ShowGlobalMarksOnExit, { desc = 'Show global marks' })
+vim.api.nvim_command('autocmd BufWinEnter * lua ShowGlobalMarksOnExit()')--]]
+-- Copilot helper (bug involving nodejs version)
+vim.g.copilot_node_command = "~/.nvm/versions/node/v16.20.2/bin/node"
 
 
 require("custom.lazy")
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-vim.keymap.set('n', '<leader>f', ':NvimTreeFindFileToggle<CR>', {
-  noremap = true
-})
+
 -- opens a terminal in thj current directory
 vim.keymap.set("n", "<leader>t", function()
   vim.cmd("cd %:p:h")
@@ -235,12 +269,12 @@ require('nvim-treesitter.configs').setup {
     },
     swap = {
       enable = true,
-      swap_next = {
-        ['<leader>a'] = '@parameter.inner',
-      },
-      swap_previous = {
-        ['<leader>A'] = '@parameter.inner',
-      },
+      -- swap_next = {
+      --   ['<leader>a'] = '@parameter.inner',
+      -- },
+      -- swap_previous = {
+      --   ['<leader>A'] = '@parameter.inner',
+      -- },
     },
   },
 }
