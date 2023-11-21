@@ -80,6 +80,10 @@ end
 vim.keymap.set("n", "<leader>g", ShowGlobalMarksOnExit, { desc = 'Show global marks' })
 vim.api.nvim_command('autocmd BufWinEnter * lua ShowGlobalMarksOnExit()')--]]
 -- Copilot helper (bug involving nodejs version)
+
+
+
+
 vim.g.copilot_node_command = "~/.nvm/versions/node/v16.20.2/bin/node"
 
 
