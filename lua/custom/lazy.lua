@@ -27,7 +27,6 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- add connection to nvim-web-devicons so that icons show up in nvim-tree
   --
-  --
   'nvim-tree/nvim-web-devicons',
   'ryanoasis/vim-devicons',
   --  NOTE: First, some plugins that don't require any configuration

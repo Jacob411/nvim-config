@@ -1,9 +1,9 @@
 return
 {
-  "ellisonleao/gruvbox.nvim",
+  "lunarvim/Onedarker.nvim",
   priority = 1000,
   config = function()
-    vim.cmd.colorscheme 'gruvbox'
+    vim.cmd.colorscheme 'onedarker'
   end,
   opts = ...
 }
