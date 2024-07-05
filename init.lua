@@ -21,7 +21,6 @@ Kickstart.nvim is a template for your own configuration.
   And then you can explore or search through `:help lua-guide`
   - https://neovim.io/doc/user/lua-guide.html
 
-
 Kickstart Guide:
 
 I have left several `:help X` comments throughout the init.lua
@@ -82,9 +81,8 @@ vim.api.nvim_command('autocmd BufWinEnter * lua ShowGlobalMarksOnExit()')--]]
 -- Copilot helper (bug involving nodejs version)
 
 
-
-
-vim.g.copilot_node_command = "~/.nvm/versions/node/v16.20.2/bin/node"
+vim.g.copilot_node_command = "~/.nvm/versions/node/v21.4.0/bin/node"
+-- set up copilot
 
 
 require("custom.lazy")
@@ -108,9 +106,8 @@ end)
 
 vim.cmd [[imap <silent><script><expr> <C-a> copilot#Accept("\<CR>")]]
 
--- color for the copilot suggestions
-vim.cmd [[highlight CopilotSuggestion guifg=#757575 ctermfg=8]]
-
+-- color for the copilot suggestions old color #757575
+vim.cmd [[highlight CopilotSuggestion guifg=#ffffff ctermfg=8]]
 
 
 
@@ -209,14 +206,9 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
-  -- Add languages to be installed here that you want installed for treesitter
   ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim',
     'java' },
-
-  -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = true,
-
-  -- START missing attributes that Jacob Added later to complete config
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
@@ -224,8 +216,6 @@ require('nvim-treesitter.configs').setup {
   -- Modules attribute to show modules (look at Documentation)
   modules = {},
 
-  --END Jacob added stuff
-  --
   highlight = { enable = true },
   indent = { enable = true },
   incremental_selection = {
@@ -346,24 +336,24 @@ end
 --  If you want to override the default filetypes that your language server will attach to you can
 --  define the property 'filetypes' to the map in question.
 local servers = {
-  -- clangd = {},
-  -- gopls = {},
-  -- rust_analyzer = {},
-  tsserver = {},
-  html = { filetypes = { 'html', 'twig', 'hbs' } },
- -- lsp for ruby
-  -- use info from solargraph docs to configure
---[[   solargraph = {
-  },
-  ]] lua_ls = {
-    Lua = {
-      workspace = { checkThirdParty = false },
-      telemetry = { enable = false },
-    },
-  },
-  pyright = {
-  },
-
+--   -- clangd = {},
+--   -- gopls = {},
+--   -- rust_analyzer = {},
+--   tsserver = {},
+--   html = { filetypes = { 'html', 'twig', 'hbs' } },
+--  -- lsp for ruby
+--   -- use info from solargraph docs to configure
+-- --[[   solargraph = {
+--   },
+--   ]] lua_ls = {
+--     Lua = {
+--       workspace = { checkThirdParty = false },
+--       telemetry = { enable = false },
+--     },
+--   },
+--   pyright = {
+--   },
+--
 }
 -- Ensure the servers above are installed
 require("mason").setup()
@@ -387,6 +377,28 @@ mason_lspconfig.setup_handlers {
   end
 }
 --
+
+local lspconfig = require 'lspconfig'
+local configs = require 'lspconfig.configs'
+
+-- Check if the config is already defined (useful when reloading this file)
+if not configs.custom_lsp then
+  configs.custom_lsp = {
+    default_config = {
+      cmd = {'python3', "/home/jacob/repos/Llama-3/lsp/first_lsp.py" },
+      filetypes = {'python'},
+      root_dir = function(fname)
+        return lspconfig.util.find_git_ancestor(fname)
+      end,
+      settings = {},
+    },
+  }
+end
+
+lspconfig.custom_lsp.setup{
+  capabilities = capabilities,
+}
+
 -- [[ Configure nvim-cmp ]]
 -- See `:help cmp`
 local cmp = require 'cmp'
@@ -410,15 +422,25 @@ cmp.setup {
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
     },
-    ['<Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif luasnip.expand_or_locally_jumpable() then
-        luasnip.expand_or_jump()
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
+
+ ['<Tab>'] = cmp.mapping(function(fallback)
+                        local copilot = require 'copilot.suggestion'
+                        if copilot.is_visible() then
+                            copilot.accept()
+                        elseif cmp.visible() then
+                            local entry = cmp.get_selected_entry()
+                            if not entry then
+                                cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
+                            else
+                                cmp.confirm()
+                            end
+                        elseif luasnip.expand_or_jumpable() then
+                            luasnip.expand_or_jump()
+                        else
+                            fallback()
+                        end
+                    end, { 'i', 's' }),
+
     ['<S-Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
@@ -431,9 +453,10 @@ cmp.setup {
   },
   sources = {
     { name = 'nvim_lsp' },
-    { name = 'luasnip' },
+    -- { name = 'luasnip' },
   },
 }
 
--- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=2 sts=2 sw=2 et
+
+
+
