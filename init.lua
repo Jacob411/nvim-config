@@ -81,8 +81,8 @@ vim.api.nvim_command('autocmd BufWinEnter * lua ShowGlobalMarksOnExit()')--]]
 -- Copilot helper (bug involving nodejs version)
 
 
+
 vim.g.copilot_node_command = "~/.nvm/versions/node/v21.4.0/bin/node"
--- set up copilot
 
 
 require("custom.lazy")
@@ -422,25 +422,15 @@ cmp.setup {
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
     },
-
- ['<Tab>'] = cmp.mapping(function(fallback)
-                        local copilot = require 'copilot.suggestion'
-                        if copilot.is_visible() then
-                            copilot.accept()
-                        elseif cmp.visible() then
-                            local entry = cmp.get_selected_entry()
-                            if not entry then
-                                cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
-                            else
-                                cmp.confirm()
-                            end
-                        elseif luasnip.expand_or_jumpable() then
-                            luasnip.expand_or_jump()
-                        else
-                            fallback()
-                        end
-                    end, { 'i', 's' }),
-
+    ['<Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif luasnip.expand_or_locally_jumpable() then
+        luasnip.expand_or_jump()
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
     ['<S-Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
