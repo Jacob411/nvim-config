@@ -5,7 +5,6 @@
 =====================================================================
 
 Kickstart.nvim is *not* a distribution.
-
 Kickstart.nvim is a template for your own configuration.
   The goal is that you can read every line of code, top-to-bottom, understand
   what your configuration is doing, and modify it to suit your needs.
@@ -39,47 +38,6 @@ P.S. You can delete this when you're done too. It's your config now :)
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
-
--- lua
--- autocommand to go to last position when opening a file
---
--- vim.api.nvim_create_autocmd({'BufWinEnter'}, {
---   desc = 'return cursor to where it was last time closing the file',
---   pattern = '*',
---   command = 'silent! normal! g`"zv',
--- })
---
---marks helper
---[[
-function ShowGlobalMarksOnExit()
-  print("RUNNING")
-  -- get current bufnr
-  local bufnr = vim.api.nvim_get_current_buf()
-  -- get current cursor position
-  local init_pos = vim.api.nvim_win_get_cursor(0)
-  print('bufnr: '..bufnr)
-  print('line: '..init_pos[1])
-
-          vim.api.nvim_buf_set_mark(bufnr,'Q', 0,0, {})
-  --get current file name
-  local currentFile = vim.api.nvim_buf_get_name(0)
-  for mark = string.byte('A'), string.byte('Z') do
-        local mark_name = string.char(mark)
-        local curr_pos = vim.api.nvim_get_mark(mark_name, {})
-        if curr_pos[4] ~= "" then
-          print(mark_name..'  name: ' ..curr_pos[4].. '   bufnr: ' ..curr_pos[3].. '   line: '..curr_pos[1]..'   column: '..curr_pos[2])
-        end
-        if curr_pos[3] == bufnr then
-          print('mark: '..mark_name.. "moving to last visited line fFOUNDDD")
-          vim.api.nvim_buf_set_mark(bufnr, mark_name, curr_pos[1], curr_pos[2], {})
-        end
-      
-  end
-end
-vim.keymap.set("n", "<leader>g", ShowGlobalMarksOnExit, { desc = 'Show global marks' })
-vim.api.nvim_command('autocmd BufWinEnter * lua ShowGlobalMarksOnExit()')--]]
--- Copilot helper (bug involving nodejs version)
-
 
 
 vim.g.copilot_node_command = "~/.nvm/versions/node/v21.4.0/bin/node"
@@ -379,25 +337,6 @@ mason_lspconfig.setup_handlers {
 --
 
 local lspconfig = require 'lspconfig'
-local configs = require 'lspconfig.configs'
-
--- Check if the config is already defined (useful when reloading this file)
-if not configs.custom_lsp then
-  configs.custom_lsp = {
-    default_config = {
-      cmd = {'python3', "/home/jacob/repos/Llama-3/lsp/first_lsp.py" },
-      filetypes = {'python'},
-      root_dir = function(fname)
-        return lspconfig.util.find_git_ancestor(fname)
-      end,
-      settings = {},
-    },
-  }
-end
-
-lspconfig.custom_lsp.setup{
-  capabilities = capabilities,
-}
 
 -- [[ Configure nvim-cmp ]]
 -- See `:help cmp`
@@ -449,4 +388,23 @@ cmp.setup {
 
 
 
+-- vim.opt.runtimepath:append("~/repos/Ollama-Copilot/")
+
+-- local ollamacopilot = require("OllamaCopilot")
+--
+-- ollamacopilot.setup({
+--   model_name = "starcoder:1b",
+--   filetypes = {
+--     "lua",
+--     "python",
+--     "javascript",
+--     "typescript",
+--     "rust",
+--     "go",
+--     "c",
+--     "cpp",
+--   },
+-- })
+--
+--
 

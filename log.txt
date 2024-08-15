@@ -1,0 +1,8 @@
+CompletionParams(text_document=TextDocumentIdentifier(uri='file:///home/jacob/.config/nvim/init.lua'), position=24:0, context=None, work_done_token=None, partial_result_token=None)
+CompletionParams(text_document=TextDocumentIdentifier(uri='file:///home/jacob/.config/nvim/init.lua'), position=24:0, context=None, work_done_token=None, partial_result_token=None)
+CompletionParams(text_document=TextDocumentIdentifier(uri='file:///home/jacob/.config/nvim/init.lua'), position=360:30, context=CompletionContext(trigger_kind=<CompletionTriggerKind.Invoked: 1>, trigger_character=None), work_done_token=None, partial_result_token=None)
+CompletionParams(text_document=TextDocumentIdentifier(uri='file:///home/jacob/.config/nvim/init.lua'), position=7:0, context=None, work_done_token=None, partial_result_token=None)
+CompletionParams(text_document=TextDocumentIdentifier(uri='file:///home/jacob/.config/nvim/init.lua'), position=360:23, context=CompletionContext(trigger_kind=<CompletionTriggerKind.Invoked: 1>, trigger_character=None), work_done_token=None, partial_result_token=None)
+CompletionParams(text_document=TextDocumentIdentifier(uri='file:///home/jacob/.config/nvim/init.lua'), position=7:3, context=None, work_done_token=None, partial_result_token=None)
+CompletionParams(text_document=TextDocumentIdentifier(uri='file:///home/jacob/.config/nvim/init.lua'), position=360:15, context=CompletionContext(trigger_kind=<CompletionTriggerKind.Invoked: 1>, trigger_character=None), work_done_token=None, partial_result_token=None)
+CompletionParams(text_document=TextDocumentIdentifier(uri='file:///home/jacob/.config/nvim/init.lua'), position=7:3, context=None, work_done_token=None, partial_result_token=None)

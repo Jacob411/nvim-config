@@ -6,6 +6,7 @@ vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 
 
+
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
 --    `:help lazy.nvim.txt` for more info
@@ -26,15 +27,31 @@ vim.opt.rtp:prepend(lazypath)
 --  You can also configure plugins after the setup call,
 --    as they will be available in your neovim runtime.
 require('lazy').setup({
-  -- add connection to nvim-web-devicons so that icons show up in nvim-tree
-  --
-  'nvim-tree/nvim-web-devicons',
-  'ryanoasis/vim-devicons',
-  --  NOTE: First, some plugins that don't require any configuration
-  
-  --Jacob addd plugins, without need for configuration
+-- {
+--   'jacob411/Ollama-Copilot',
+--   opts = {
+--     model_name = "starcoder:1b",
+--     stream_suggestion = false,
+--     python_command = "python3",
+--     filetypes = {'*'},
+--     ollama_model_opts = { --Ollama model opts see https://github.com/ollama/ollama/blob/main/docs/modelfile.md for all options
+--       num_predict = 40,
+--       temperature = 0.1,
+--       stop = {'\n'}
+--     },
+--   keymaps = {
+--     suggestion = '<leader>os',
+--     accept = '<leader>oa',
+--     reject = '<leader>or',
+--     insert_accept = '<C-a>',
+--   },
+--   }
+-- },
+
   'github/copilot.vim',
 
+  'nvim-tree/nvim-web-devicons',
+  'ryanoasis/vim-devicons',
 
   -- Git related plugins
   'tpope/vim-fugitive',
@@ -43,45 +60,30 @@ require('lazy').setup({
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
 
-
-  -- LSP Stuff
-  -- NOTE: This is where your plugins related to LSP can be installed.
-  --  The configuration is done below. Search for lspconfig to find it below.
-
   -- Additional lua configuration, makes nvim stuff amazing!
---  'folke/neodev.nvim',
+  --  'folke/neodev.nvim',
 
   -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
     { 'j-hui/fidget.nvim',       tag = 'legacy', opts = {} },
 
-  
-  -- Useful plugin to show you pending keybinds.
   { 'folke/which-key.nvim',  opts = {} },
 
    {
-    -- Add indentation guides even on blank lines
     "lukas-reineke/indent-blankline.nvim",
     main = "ibl",
-    -- Enable `lukas-reineke/indent-blankline.nvim`
-    -- See `:help indent_blankline.txt`
     opts = {
     },
   },
-  -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
   {
-    -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     dependencies = {
       'nvim-treesitter/nvim-treesitter-textobjects',
     },
     build = ':TSUpdate',
   },
-  -- {
-  --   'neovim/nvim-lspconfig',
-  -- },
-  --
+ 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.

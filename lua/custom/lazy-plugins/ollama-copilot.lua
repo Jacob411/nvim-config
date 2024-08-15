@@ -1,0 +1,12 @@
+-- return {
+-- 	'jacob411/Ollama-copilot',
+-- 	dependencies = { 'nvim-lspconfig'},
+-- 	config = function()
+-- 		require 'OllamaCopilot'.setup({
+-- 			-- Your settings here
+-- 			model_name = "starcoder:1b",
+-- 		})
+-- 	end
+-- }
+--
+return {}
