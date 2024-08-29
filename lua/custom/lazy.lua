@@ -7,6 +7,8 @@ vim.opt.expandtab = true
 
 
 
+
+
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
 --    `:help lazy.nvim.txt` for more info
@@ -27,27 +29,8 @@ vim.opt.rtp:prepend(lazypath)
 --  You can also configure plugins after the setup call,
 --    as they will be available in your neovim runtime.
 require('lazy').setup({
--- {
---   'jacob411/Ollama-Copilot',
---   opts = {
---     model_name = "starcoder:1b",
---     stream_suggestion = false,
---     python_command = "python3",
---     filetypes = {'*'},
---     ollama_model_opts = { --Ollama model opts see https://github.com/ollama/ollama/blob/main/docs/modelfile.md for all options
---       num_predict = 40,
---       temperature = 0.1,
---       stop = {'\n'}
---     },
---   keymaps = {
---     suggestion = '<leader>os',
---     accept = '<leader>oa',
---     reject = '<leader>or',
---     insert_accept = '<C-a>',
---   },
---   }
--- },
 
+  -- {'jacob411/Ollama-copilot', opts={}},
   'github/copilot.vim',
 
   'nvim-tree/nvim-web-devicons',
