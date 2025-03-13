@@ -40,7 +40,7 @@ P.S. You can delete this when you're done too. It's your config now :)
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
 
 
-vim.g.copilot_node_command = "~/.nvm/versions/node/v21.4.0/bin/node"
+--vim.g.copilot_node_command = "~/.nvm/versions/node/v21.4.0/bin/node"
 
 
 require("custom.lazy")

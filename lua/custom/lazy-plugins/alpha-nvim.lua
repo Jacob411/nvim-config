@@ -4,7 +4,7 @@ return {
 	config = function()
 		local alpha = require 'alpha'
 		local dashboard = require 'alpha.themes.startify'
-    dashboard.section.header.val = {
+		dashboard.section.header.val = {
             
 
 [[    ___          ___           ___           ___                         ___                    ___           ___           ___                                    ___     ]], 
@@ -18,7 +18,20 @@ return {
 [[    /__/:/    \  \:\        \  \:\/:/     \  \:\/:/     \  \:\/:/     \__\/ /:/              \  \:\        \  \:\/:/     \  \:\/:/    \  \:\__|:|     /__/:/    \  \:\     ]],
 [[    \__\/      \  \:\        \  \::/       \  \::/       \  \::/        /__/:/                \  \:\        \  \::/       \  \::/      \__\::::/      \__\/      \  \:\    ]],
 [[                \__\/         \__\/         \__\/         \__\/         \__\/                  \__\/         \__\/         \__\/           ~~~~                   \__\/    ]],
-        }
+		}
+	
+		dashboard.section.header.val = {
+
+		[[    _   __         _    ___         ]],
+		[[   / | / /__  ____| |  / (_)___ ___ ]],
+		[[  /  |/ / _ \/ __ \ | / / / __ `__ \]],
+		[[ / /|  /  __/ /_/ / |/ / / / / / / /]],
+		[[/_/ |_/\___/\____/|___/_/_/ /_/ /_/ ]],
+						    
+
+		}
+
+	
 		alpha.setup(dashboard.config)
 	end
 }

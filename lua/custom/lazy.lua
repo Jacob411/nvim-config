@@ -9,6 +9,9 @@ vim.opt.expandtab = true
 
 
 
+
+
+
 -- Install package manager
 --    https://github.com/folke/lazy.nvim
 --    `:help lazy.nvim.txt` for more info
@@ -23,6 +26,13 @@ if not vim.loop.fs_stat(lazypath) then
     lazypath,
   }
 end
+
+
+
+
+
+
+
 vim.opt.rtp:prepend(lazypath)
 -- NOTE: Here is where you install your plugins.
 --  You can configure plugins using the `config` key.
@@ -30,7 +40,8 @@ vim.opt.rtp:prepend(lazypath)
 --    as they will be available in your neovim runtime.
 require('lazy').setup({
 
-  -- {'jacob411/Ollama-copilot', opts={}},
+
+  --{'jacob411/Ollama-copilot', opts={model_name = 'deepseek-coder-v2:16b-lite-base-q8_0', stream_suggestion = false}},
   'github/copilot.vim',
 
   'nvim-tree/nvim-web-devicons',
@@ -82,3 +93,4 @@ require('lazy').setup({
 -- require 'lspconfig'.pyright.setup{}
 -- require 'lspconfig'.ccls.setup{}
 --
+-- 
