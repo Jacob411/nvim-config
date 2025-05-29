@@ -41,7 +41,7 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
 
 
-  --{'jacob411/Ollama-copilot', opts={model_name = 'deepseek-coder-v2:16b-lite-base-q8_0', stream_suggestion = false}},
+  {'jacob411/Ollama-copilot', opts={model_name = 'deepseek-coder-v2:16b-lite-base-q8_0', stream_suggestion = false}},
   'github/copilot.vim',
 
   'nvim-tree/nvim-web-devicons',
